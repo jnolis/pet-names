@@ -66,29 +66,25 @@ y_name <- text_matrix[,max_length+1,] # make the Y data of the next letter
 # CREATING THE MODEL ---------------
 
 # the input to the network
-previous_letters_input <- 
-  layer_input(shape = c(max_length,num_characters), name = "previous_letters_input") 
+input <- layer_input(shape = c(max_length,num_characters)) 
 
 # the name data needs to be processed using an LSTM, 
 # Check out Deep Learning with R (Chollet & Allaire, 2018) to learn more.
 # if we were using words instead of characters, or we had 10x the datapoints,
 # we'd want to use more lstm layers instead of just two
 output <- 
-  previous_letters_input %>%
-  layer_lstm(input_shape = c(max_length,num_characters), 
-             units=32, name="previous_letters_lstm_01", return_sequences = TRUE) %>%
-  layer_lstm(input_shape = c(max_length,num_characters), 
-             units=32, name="previous_letters_lstm_02", return_sequences = FALSE) %>%
-  layer_dropout(0.2) %>%
-  layer_dense(num_characters, name="reduce_to_characters_dense") %>%
-  layer_activation("softmax", "final_activation")
+  input %>%
+  layer_lstm(units = 32, return_sequences = TRUE) %>%
+  layer_lstm(units = 32, return_sequences = FALSE) %>%
+  layer_dropout(rate = 0.2) %>%
+  layer_dense(num_characters) %>%
+  layer_activation("softmax")
 
 # the actual model, compiled
-model <- keras_model(inputs = previous_letters_input, outputs = output) %>% 
+model <- keras_model(inputs = input, outputs = output) %>% 
   compile(
     loss = 'binary_crossentropy',
-    optimizer = "adam",
-    metrics = c('accuracy')
+    optimizer = "adam"
   )
 
 
@@ -97,10 +93,10 @@ model <- keras_model(inputs = previous_letters_input, outputs = output) %>%
 # here we run the model through the data 25 times. 
 # In theory the more runs the better the results, but the returns diminish
 fit_results <- model %>% keras::fit(
-  list(x_name), y_name,
+  x_name, 
+  y_name,
   batch_size = 64,
-  epochs = 25,
-  view_metrics = FALSE
+  epochs = 25
 )
 
 # SAVE THE MODEL ---------------
