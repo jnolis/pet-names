@@ -4,7 +4,9 @@ This repository creates a docker image that uses R and the [keras](https://keras
 
 This is an introductory repository to help R users learn about keras, plumber, and Docker. A more featureful version of this code can be found at the [T-Mobile open-source r-tensorflow-api project](https://github.com/tmobile/r-tensorflow-api).
 
-This code was used in talks by Jacqueline Nolis and Heather Nolis at the New York R Conference in May of 2019.
+The Docker container is currently being hosted on the Nolis, LLC website, and can be queried by visiting [http://pets.nolisllc.com/names](http://pets.nolisllc.com/names).
+
+This code was used in talks by [Jacqueline Nolis](https://twitter.com/skyetetra) and [Heather Nolis](https://twitter.com/heatherklus) at the New York R Conference in May of 2019.
 
 ## How to use this repository
 
