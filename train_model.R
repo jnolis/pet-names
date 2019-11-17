@@ -83,7 +83,7 @@ output <-
 # the actual model, compiled
 model <- keras_model(inputs = input, outputs = output) %>% 
   compile(
-    loss = 'binary_crossentropy',
+    loss = 'categorical_crossentropy',
     optimizer = "adam"
   )
 
