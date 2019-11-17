@@ -45,6 +45,6 @@ COPY / /
 # install the needed R packages
 RUN Rscript setup.R
 
-EXPOSE 80
+EXPOSE 8080
 
 ENTRYPOINT ["Rscript","main.R"]
