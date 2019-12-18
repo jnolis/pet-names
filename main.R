@@ -1,4 +1,6 @@
 library(plumber)
 
 r <- plumb("rest_controller.R")
-r$run(port=80, host="0.0.0.0")
+# Get PORT env var for Cloud Run
+PORT <- strtoi(Sys.getenv("PORT", 8080))
+r$run(port=PORT, host="0.0.0.0")

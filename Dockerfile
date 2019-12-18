@@ -1,4 +1,4 @@
-FROM rocker/r-ver:3.5.2
+FROM rocker/r-ver:3.6.0
 
 # install and update some linux packages then clean up
 RUN apt-get update \
@@ -25,7 +25,7 @@ RUN apt-get update \
     && dpkg -i libssl1.0.0.deb \
     && rm libssl1.0.0.deb \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/ 
+    && rm -rf /var/lib/apt/lists/
 
 # install Python 3.7 (Miniconda) and Keras/Tensorflow Python packages then set  path variables.
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -35,16 +35,14 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
-RUN /opt/conda/bin/pip install --no-cache-dir keras tensorflow h5py
+RUN /opt/conda/bin/pip install --no-cache-dir keras tensorflow==2.0.0 h5py==2.10.0
 ENV PATH /opt/conda/bin:$PATH
 ENV RETICULATE_PYTHON /opt/conda/bin/python
 
 # copy the files
-COPY / /
+COPY . .
 
 # install the needed R packages
 RUN Rscript setup.R
-
-EXPOSE 80
 
 ENTRYPOINT ["Rscript","main.R"]
