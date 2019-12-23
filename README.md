@@ -1,5 +1,7 @@
 # Generating pet names - creating an R Keras model and deploying it in a Docker container
 
+_(this branch is for the version that can be run on Google Cloud Run)_
+
 This repository creates a docker image that uses R and the [keras](https://keras.rstudio.com/) and [plumber](https://github.com/trestletech/plumber) R packages to create a neural network powered RESTful API. The package keras provides the ability to create neural networks, while plumber allows it to run R as a web service.
 
 This is an introductory repository to help R users learn about keras, plumber, and Docker. A more featureful version of this code can be found at the [T-Mobile open-source r-tensorflow-api project](https://github.com/tmobile/r-tensorflow-api).
