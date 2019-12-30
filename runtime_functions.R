@@ -4,7 +4,7 @@ library(keras)
 source("parameters.R")
 
 # load the neural network model
-model <- load_model_hdf5("model.h5")
+model <- load_model_hdf5("model.h5", compile=FALSE)
 
 
 # a function that generates a single pet name from a model
