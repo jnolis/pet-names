@@ -1,4 +1,4 @@
-FROM rocker/r-ver:3.6.3
+FROM rocker/r-ver:4.0.1
 
 # install and update some linux packages then clean up
 RUN apt-get update \
@@ -25,7 +25,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/
 
 # install Python 3.7 (Miniconda) and Tensorflow Python packages then set path variables.
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
