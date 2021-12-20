@@ -7,6 +7,7 @@ library(stringr)
 library(purrr)
 library(tidyr)
 library(keras) # use install_keras() if running for the first time. See https://keras.rstudio.com/ for details
+np <- reticulate::import("numpy", convert=FALSE) # needed for a small amount of nparray manipulation
 
 # load all of the parameters. They are stored in a separate file so they can be used when
 # running the model too
@@ -59,8 +60,9 @@ text_matrix <-
   pad_sequences(maxlen = max_length+1) %>% # add padding so all of the sequences have the same length
   to_categorical(num_classes = num_characters) # 1-hot encode them (so like make 2 into [0,1,0,...,0])
 
-x_name <- text_matrix[,1:max_length,] # make the X data of the letters before
-y_name <- text_matrix[,max_length+1,] # make the Y data of the next letter
+
+x_name <- np$delete(text_matrix, as.integer(max_length), 1L) # make the X data of the letters before
+y_name <- np$delete(text_matrix, as.integer((1:max_length)-1), 1L)$squeeze() # make the Y data of the next letter
 
 
 # CREATING THE MODEL ---------------
