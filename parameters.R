@@ -1,4 +1,4 @@
-character_lookup <- data.frame(character = c(letters,".","-"," ","+"), stringsAsFactors = FALSE)
+character_lookup <- data.frame(character = c(letters,".","-"," ","+"))
 character_lookup[["character_id"]] <- 1:nrow(character_lookup)
 
 max_length <- 10
